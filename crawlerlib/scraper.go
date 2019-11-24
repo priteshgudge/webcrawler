@@ -10,22 +10,22 @@ import (
 	"sync"
 )
 
-// scraper crawls the link, scrape urls normalises then and returns the dump to gru
+// scraper crawls the link, scrape urls normalises then and returns the dump to delegator
 type scraper struct {
-	name      string
-	busy      bool                 // busy represents whether scraper is idle/busy
-	mu        *sync.RWMutex        // protects the above
-	payloadCh chan *scraperPayload // payload listens for urls to be scrapped
-	gruDumpCh chan<- *scraperDumps // gruDumpCh to send finished data to gru
+	name            string
+	busy            bool                 // busy represents whether scraper is idle/busy
+	mu              *sync.RWMutex        // protects the above
+	payloadCh       chan *scraperPayload // payload listens for urls to be scrapped
+	delegatorDumpCh chan<- *scraperDumps // delegatorDumpCh to send finished data to delegator
 }
 
-// newScraper returns a new scraper under given gru
-func newScraper(name string, gruDumpCh chan<- *scraperDumps) *scraper {
+// newScraper returns a new scraper under given delegator
+func newScraper(name string, delegatorDumpCh chan<- *scraperDumps) *scraper {
 	return &scraper{
-		name:      name,
-		mu:        &sync.RWMutex{},
-		payloadCh: make(chan *scraperPayload),
-		gruDumpCh: gruDumpCh,
+		name:            name,
+		mu:              &sync.RWMutex{},
+		payloadCh:       make(chan *scraperPayload),
+		delegatorDumpCh: delegatorDumpCh,
 	}
 }
 
@@ -98,7 +98,7 @@ func startScraper(ctx context.Context, m *scraper) {
 			log.Printf("Crawling urls(%d) from depth %d\n", len(mp.urls), mp.currentDepth)
 			mds := crawlURLs(mp.currentDepth, mp.urls)
 			got := make(chan bool)
-			m.gruDumpCh <- &scraperDumps{
+			m.delegatorDumpCh <- &scraperDumps{
 				scraper: m.name,
 				got:    got,
 				mds:    mds,

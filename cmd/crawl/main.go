@@ -4,7 +4,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	crawlerlib "github.com/priteshgudge/webcrawler/crawlerlib"
+	"github.com/priteshgudge/webcrawler/crawlerlib"
 	"log"
 	"os"
 )
@@ -14,10 +14,10 @@ func main() {
 	log.SetFlags(log.Ldate | log.Lshortfile)
 	flag.CommandLine.SetOutput(os.Stdout)
 
-	baseURL := flag.String("url", "https://vedhavyas.com", "Starting URL")
-	maxDepth := flag.Int("max-depth", -1, "Max depth to Crawl")
-	domainRegex := flag.String("domain-regex", "", "Domain regex to limit crawls to. Defaults to base url domain")
-	sitemapFile := flag.String("sitemap", "", "File location to write sitemap to")
+	baseURL := flag.String("url", "https://monzo.com", "Starting URL")
+	maxDepth := flag.Int("max-depth", 2, "Max depth to Crawl")
+	domainRegex := flag.String("domain-regex", "monzo", "Domain regex to limit crawls to. Defaults to base url domain")
+	sitemapFile := flag.String("sitemap", "sitemap.txt", "File location to write sitemap to")
 	help := flag.Bool("help", false, "Show Options")
 	flag.Parse()
 

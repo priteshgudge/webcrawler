@@ -41,7 +41,7 @@ func Test_getIdleScrapers(t *testing.T) {
 
 	idleScrapers := getIdleScrapers(g)
 	if len(idleScrapers) != len(expectedIdleScrapers) {
-		t.Fatalf("expected idle minions %d but got %d", len(expectedIdleScrapers), len(idleScrapers))
+		t.Fatalf("expected idle scrapers %d but got %d", len(expectedIdleScrapers), len(idleScrapers))
 	}
 
 	for _, s := range idleScrapers {

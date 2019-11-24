@@ -191,7 +191,7 @@ func processDumps(g *delegator, mds []*scraperDump) (finished bool) {
 
 // startDelegator initiates delegator to start scraping
 func startDelegator(ctx context.Context, g *delegator) {
-	log.Printf("Starting Gru with Base URL: %s\n", g.baseURL)
+	log.Printf("Starting Delegator with Base URL: %s\n", g.baseURL)
 	distributePayload(g, 0, []*url.URL{g.baseURL})
 
 	for {
@@ -205,7 +205,7 @@ func startDelegator(ctx context.Context, g *delegator) {
 			log.Printf("got new dump from %s\n", mds.scraper)
 			done := processDumps(g, mds.mds)
 			if done {
-				log.Println("stopping gru...")
+				log.Println("stopping Delegator...")
 				return
 			}
 		}
