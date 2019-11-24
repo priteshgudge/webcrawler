@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net/url"
 	"regexp"
-	"runtime"
 	"sort"
 	"strings"
 )
