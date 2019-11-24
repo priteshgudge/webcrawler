@@ -135,8 +135,8 @@ func StartWithDepth(ctx context.Context, url string, maxDepth int, concurrency i
 }
 
 // StartWithDepthAndDomainRegex will start the scrapping with max depth and regex
-func StartWithDepthAndDomainRegex(ctx context.Context, url string, maxDepth int, domainRegex string) (resp *Response, err error) {
-	return start(ctx, url, maxDepth, domainRegex)
+func StartWithDepthAndDomainRegex(ctx context.Context, url string, maxDepth int, domainRegex string, concurrency int) (resp *Response, err error) {
+	return start(ctx, url, maxDepth, domainRegex,concurrency)
 }
 
 // StartWithDomainRegex will start the scrapping with no depth limit(-1) and regex
