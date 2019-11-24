@@ -1,12 +1,12 @@
-package lib
+package crawlerlib
 
 import (
-"fmt"
-"io"
-"net/url"
-"strings"
+	"fmt"
+	"io"
+	"net/url"
+	"strings"
 
-"golang.org/x/net/html"
+	"golang.org/x/net/html"
 )
 
 //resolveURL returns an absolute url of the extracted href

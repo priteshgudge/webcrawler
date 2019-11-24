@@ -1,4 +1,4 @@
-package lib
+package crawlerlib
 
 import "net/url"
 

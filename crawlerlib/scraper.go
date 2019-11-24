@@ -1,13 +1,13 @@
-package lib
+package crawlerlib
 
 import (
-"context"
-"fmt"
-"log"
-"net/http"
-"net/url"
-"strings"
-"sync"
+	"context"
+	"fmt"
+	"log"
+	"net/http"
+	"net/url"
+	"strings"
+	"sync"
 )
 
 // scraper crawls the link, scrape urls normalises then and returns the dump to gru

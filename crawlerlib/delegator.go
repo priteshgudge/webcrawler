@@ -1,12 +1,12 @@
-package lib
+package crawlerlib
 
 import (
-"context"
-"errors"
-"fmt"
-"log"
-"net/url"
-"regexp"
+	"context"
+	"errors"
+	"fmt"
+	"log"
+	"net/url"
+	"regexp"
 )
 
 // delegator acts a medium for the scrapers and does the following
@@ -141,7 +141,7 @@ func distributePayload(g *delegator, depth int, urls []*url.URL) error {
 func processDump(g *delegator, md *scraperDump) {
 	g.scrapped[md.depth-1] = append(g.scrapped[md.depth-1], md.sourceURL)
 	for _, p := range g.processors {
-		r := process(g, md)
+		r := p.process(g, md)
 		if !r {
 			return
 		}
