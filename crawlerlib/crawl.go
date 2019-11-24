@@ -105,7 +105,7 @@ func delegatorToResponse(g *delegator) *Response {
 }
 
 // start will start the scrapping
-func start(ctx context.Context, u string, maxDepth int, regex string) (resp *Response, err error) {
+func start(ctx context.Context, u string, maxDepth int, regex string, concurrency int) (resp *Response, err error) {
 	baseURL, err := url.Parse(u)
 	if err != nil {
 		return nil, fmt.Errorf("failed to scrape url: %v\n", err)
@@ -117,7 +117,7 @@ func start(ctx context.Context, u string, maxDepth int, regex string) (resp *Res
 	}
 
 	var scrapers []*scraper
-	for i := 0; i < runtime.NumCPU()*2; i++ {
+	for i := 0; i < concurrency; i++ {
 		m := newScraper(fmt.Sprintf("Scraper %d", i), g.submitDumpCh)
 		scrapers = append(scrapers, m)
 		go startScraper(ctx, m)
@@ -130,8 +130,8 @@ func start(ctx context.Context, u string, maxDepth int, regex string) (resp *Res
 }
 
 // StartWithDepth will start the scrapping with given max depth and base url domain
-func StartWithDepth(ctx context.Context, url string, maxDepth int) (resp *Response, err error) {
-	return start(ctx, url, maxDepth, "")
+func StartWithDepth(ctx context.Context, url string, maxDepth int, concurrency int) (resp *Response, err error) {
+	return start(ctx, url, maxDepth, "", concurrency)
 }
 
 // StartWithDepthAndDomainRegex will start the scrapping with max depth and regex
@@ -140,13 +140,13 @@ func StartWithDepthAndDomainRegex(ctx context.Context, url string, maxDepth int,
 }
 
 // StartWithDomainRegex will start the scrapping with no depth limit(-1) and regex
-func StartWithDomainRegex(ctx context.Context, url, domainRegex string) (resp *Response, err error) {
-	return start(ctx, url, -1, domainRegex)
+func StartWithDomainRegex(ctx context.Context, url, domainRegex string, concurrency int) (resp *Response, err error) {
+	return start(ctx, url, -1, domainRegex, concurrency)
 }
 
 // Start will start the scrapping with no depth limit(-1) and base url domain
-func Start(ctx context.Context, url string) (resp *Response, err error) {
-	return start(ctx, url, -1, "")
+func Start(ctx context.Context, url string, concurrency int) (resp *Response, err error) {
+	return start(ctx, url, -1, "", concurrency)
 }
 
 // Sitemap generates a sitemap from the given response

@@ -1,6 +1,16 @@
 package crawlerlib
 
-import "os"
+import (
+	"os"
+	"bytes"
+)
+
+func escapeIncompatibleCharacters(inpString string)string{
+	bytesString := []byte(inpString)
+	formattedBytes := bytes.Replace(bytesString, []byte("&"), []byte("amp;"), -1)
+	return string(formattedBytes)
+
+}
 
 // generateSiteMap will write the crawled url to given file
 func generateSiteMap(fileName string, urls map[string]int) error {
@@ -18,8 +28,9 @@ func generateSiteMap(fileName string, urls map[string]int) error {
 	fh.WriteString("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
 	fh.WriteString("<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n")
 	for loc := range urls {
+		locValue := escapeIncompatibleCharacters(loc)
 		fh.WriteString("    " + "<url>\n")
-		fh.WriteString("      " + "<loc>" + loc + "</loc>\n")
+		fh.WriteString("      " + "<loc>" + locValue + "</loc>\n")
 		fh.WriteString("      " + "<changefreq>weekly</changefreq>\n")
 		fh.WriteString("      " + "<priority>0.5</priority>\n")
 		fh.WriteString("    " + "</url>\n")
