@@ -1,7 +1,5 @@
 # WebCrawler Implementation in Golang
 
-[![Build Status](https://travis-ci.com/priteshgudge/webcrawler.svg?branch=master)](https://travis-ci.com/priteshgudge/webcrawler)
-
 ## Running the crawler
 
 `go run cmd/crawl/main.go --url=https://mongo.com --scraper-concurrency=10` 
