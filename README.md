@@ -9,6 +9,9 @@ Primary Crawler code resides in `crawlerlib`
 
 Run: `go test` in `crawlerlib` to verify tests
 
+# Implementation
+[]
+
 ### Notes:
 
 This project uses go modules
