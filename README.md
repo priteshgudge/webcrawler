@@ -2,7 +2,7 @@
 
 ## Running the crawler
 
-`go run cmd/crawl/main.go --url=https://mongo.com --scraper-concurrency=10` 
+`go run cmd/crawl/main.go --url=https://monzo.com --scraper-concurrency=10` 
 
 ## Primary Crawler Code
 Primary Crawler code resides in `crawlerlib`
@@ -10,7 +10,9 @@ Primary Crawler code resides in `crawlerlib`
 Run: `go test` in `crawlerlib` to verify tests
 
 # Implementation
-The numbers denote the steps in a single scraping workflow.
+The numbers denote the steps in a single scraping workflow. 
+
+The crawlers operate concurrently and communicate to the delegator via channels.
 
 ![Workflow Diagram](https://github.com/priteshgudge/webcrawler/blob/master/assets/WebCrawler.png)
 
