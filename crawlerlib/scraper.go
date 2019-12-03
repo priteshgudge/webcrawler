@@ -37,6 +37,21 @@ func isBusy(m *scraper) bool {
 	return m.busy
 }
 
+// setBusy sets scraper to busy
+func setBusy(m *scraper)  {
+	m.mu.RLock()
+	defer m.mu.RUnlock()
+	m.busy = true
+}
+
+// setAvailable sets scraper to available state
+func setAvailable(m *scraper) {
+	m.mu.RLock()
+	defer m.mu.RUnlock()
+
+	m.busy = false
+}
+
 // crawlURL crawls the url and extracts the urls from the page
 func crawlURL(depth int, u *url.URL) (md *scraperDump) {
 	resp, err := http.DefaultClient.Get(u.String())
@@ -85,6 +100,7 @@ func crawlURLs(depth int, urls []*url.URL) (mds []*scraperDump) {
 	return mds
 }
 
+
 // startScraper starts the scraper
 func startScraper(ctx context.Context, m *scraper) {
 	log.Printf("Starting %s...\n", m.name)
@@ -94,7 +110,7 @@ func startScraper(ctx context.Context, m *scraper) {
 		case <-ctx.Done():
 			return
 		case mp := <-m.payloadCh:
-			m.busy = true
+			setBusy(m)
 			log.Printf("Crawling urls(%d) from depth %d\n", len(mp.urls), mp.currentDepth)
 			mds := crawlURLs(mp.currentDepth, mp.urls)
 			got := make(chan bool)
@@ -104,7 +120,7 @@ func startScraper(ctx context.Context, m *scraper) {
 				mds:    mds,
 			}
 			<-got
-			m.busy = false
+			setAvailable(m)
 		}
 	}
 }
