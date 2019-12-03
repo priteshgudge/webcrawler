@@ -10,6 +10,8 @@ Primary Crawler code resides in `crawlerlib`
 Run: `go test` in `crawlerlib` to verify tests
 
 # Implementation
+The numbers denote the steps in a single scraping workflow.
+
 ![Workflow Diagram](https://github.com/priteshgudge/webcrawler/blob/master/assets/WebCrawler.png)
 
 ### Notes:
