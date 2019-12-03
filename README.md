@@ -10,7 +10,7 @@ Primary Crawler code resides in `crawlerlib`
 Run: `go test` in `crawlerlib` to verify tests
 
 # Implementation
-[]
+![Workflow Diagram](https://github.com/priteshgudge/webcrawler/blob/master/assets/WebCrawler.png)
 
 ### Notes:
 
