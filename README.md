@@ -2,7 +2,7 @@
 
 ## Running the crawler
 
-`go run cmd/crawl/main.go --url=https://monzo.com --concurrency=10` 
+`go run cmd/crawl/main.go --url=https://abc.com --concurrency=10` 
 
 ## Primary Crawler Code
 Primary Crawler code resides in `crawlerlib`
